@@ -5,19 +5,24 @@ using namespace std;
 
 class Solution
 {
+    // Line 11: Char 17: runtime error: signed integer overflow: 2147453785 + 36049 
+    // cannot be represented in type 'int' (solution.cpp)
+    // SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior prog_joined.cpp:20:17
+
+
 public:
     int minimumAverageDifference(vector<int> &nums)
     {
-        int sum = 0, n = nums.size();
+        long long sum = 0, n = nums.size();
         if (n == 1)
             return 0;
         for (int i = 0; i < n; i++)
             sum += nums[i];
-        int minD = INT_MAX, currentSum = 0, minIndex;
+        long long minD = LONG_LONG_MAX, currentSum = 0, minIndex;
         for (int i = 0; i < n - 1; i++)
         {
             currentSum += nums[i];
-            int temp = abs((currentSum / (i + 1)) - ((sum - currentSum) / (n - i - 1)));
+            long long temp = abs((currentSum / (i + 1)) - ((sum - currentSum) / (n - i - 1)));
             if (temp < minD)
             {
                 minD = temp;
