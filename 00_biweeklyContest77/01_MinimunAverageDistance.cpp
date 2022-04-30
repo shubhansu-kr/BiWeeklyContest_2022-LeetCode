@@ -9,6 +9,34 @@ public:
     int minimumAverageDifference(vector<int> &nums)
     {
         int sum = 0, n = nums.size();
+        if (n == 1)
+            return 0;
+        for (int i = 0; i < n; i++)
+            sum += nums[i];
+        int minD = INT_MAX, currentSum = 0, minIndex;
+        for (int i = 0; i < n - 1; i++)
+        {
+            currentSum += nums[i];
+            int temp = abs((currentSum / (i + 1)) - ((sum - currentSum) / (n - i - 1)));
+            if (temp < minD)
+            {
+                minD = temp;
+                minIndex = i;
+            }
+        }
+        if (minD > sum / n)
+            return n-1;
+        return minIndex;
+    }
+};
+
+class Solution
+{
+    // Wrong solution
+public:
+    int minimumAverageDifference(vector<int> &nums)
+    {
+        int sum = 0, n = nums.size();
         if (n < 2)
         {
             return 0;
@@ -22,13 +50,15 @@ public:
         {
             currentSum += nums[i];
             int temp = abs(currentSum / (i + 1) - (sum - currentSum) / (n - i - 1));
-            if (temp < minD) {
+            if (temp < minD)
+            {
                 minD = temp;
                 minIndex = i;
             }
         }
-        if (minD > abs(sum/n)) {
-            return n ;
+        if (minD > abs(sum / n))
+        {
+            return n;
         }
         return minIndex;
     }
